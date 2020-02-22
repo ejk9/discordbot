@@ -10,10 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/ejk9/discordbot.git"
   },
-  "author": "",
+  "author": "Jon and Grant",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ejk9/discordbot/issues"
   },
-  "homepage": "https://github.com/ejk9/discordbot#readme"
+  "homepage": "https://github.com/ejk9/discordbot#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
 }
