@@ -5,6 +5,7 @@ const newton = require('newtonmath.js');
 const client = new Discord.Client();
 const plotly = require('plotly')("ejk9", "uKqTbKbMuvDtVh0iwKiW")
 const fs = require('fs');
+const b = require('async');
 
 const prefix = '!';
 const token = 'NjgwODE1ODk0NDE4Njg1OTYy.XlGMYA._QdAyit7mUp1uaC_X_S5mzrXVB8';
@@ -15,44 +16,60 @@ client.on('ready', () =>{
 
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds))
-  }
+}
+
+async function asyncProcessing (ms) {  
+    await new Promise(resolve => setTimeout(ms, resolve))
   
+    console.log(`waited: ${ms}ms`)
+  
+    return ms
+}
+
 
 client.on('message', msg=>{
     let args = msg.content.substring(prefix.length).split(" ");
     if(msg.content === 'yikes') msg.channel.send("bruh");
     switch(args[0]){
         case 'graph':
+            console.log("graph command called")
             if(typeof args[1] === "undefined"){
                 msg.channel.send("Invald function");
                 break;
             }else if(args[1] === "help"){
-                msg.channel.send("**Usage:** !math <function>\n\n**Examples:**`!math x^2` graphs the function x^2 from -10 to 10");
+                msg.channel.send("`!graph graphs a polynomial function.`\n\n**Usage:** !graph <function> <xmin> <xmax> <step>\n\n**Examples:**\n`!math x^2` graphs the function x^2 from -10 to 10");
                 break;
             }
             typeof args[2] === "undefined" && (args[2] = -10);
             typeof args[3] === "undefined" && (args[3] = 10);
             typeof args[4] === "undefined" && (args[4] = 1);
-            console.log(args);
+            let notDone = true;
+            let result = new Array();
             let r = require("range");
-            let xnums = r.range(args[2],args[3] + 1 , args[4])
-            var result = new Array();
+            let xnums = r.range(Number(args[2]),Number(args[3]) + 1 , Number(args[4]))
+            const a = ()=>{
+            //console.log(args);
+            // console.log("I think x nums is", xnums, "and args[2]", args[2], "and args[3]", args[3], "a[4]", args[4]);
             // console.log(args[1].replace('x',xnums[2]));
             function step(i){
                 if(i < xnums.length){
                     var str = args[1].replace(/x/gi,'('+xnums[i] +')');
                     // console.log(str, end=' ');
-                    newton.simplify(str, x => result[i] = x)//console.log("please help me : ( i: " + i + " q: " + q); result[i] =q;});
+                    b.series(newton.simplify(str, x => {result[i] = x; if(i === xnums.length - 1) doSomething();}), ()=>step(i+1));
                     // console.log("this code should run second");
-                    step(i + 1)
+                    
                 }else {
+                    
                     console.log("Finished loading");
                     console.log(result);
                 }
             }
             step(0);
-            const doSomething = async () => {
-            await sleep(1000)
+
+            
+            }
+            const doSomething = async ()=> {
+            await sleep(50);
             var trace1 = {
                 
                 x: xnums,
@@ -82,9 +99,11 @@ client.on('message', msg=>{
                 },1000);
 
                 
-            });
-        }
-        doSomething();
+                })
+            }
+            a();
+            
+        
             
             
             
