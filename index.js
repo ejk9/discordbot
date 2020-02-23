@@ -17,6 +17,17 @@ var request = require('request');
 const latex = require('node-latex');
 const fs = require('fs');
 
+ 
+
+var PDFImage = require("pdf-image").PDFImage;
+ 
+var pdfImage = new PDFImage("output.pdf");
+//console.log(pdfImage.getInfo())
+
+pdfImage.convertPage(0).then(function (imagePath) {
+  // 0-th page (first page) of the slide.pdf is available as slide-0.png
+  console.log(fs.existsSync("slide-0.png")) // => true
+});
 
 client.on('ready', () =>{
     console.log('This bot is online');
@@ -24,6 +35,7 @@ client.on('ready', () =>{
 
 client.on('message', msg=>{
     let args = msg.content.substring(prefix.length).split(" ");
+    
     switch(args[0]){
         case 'math':
             if(args[1] == 'help'){
@@ -172,7 +184,7 @@ client.on('message', msg=>{
             
         break;
         case 'help':
-            
+            msg.channel.send("!help, !insult, !latex, !math")
         break;
         case 'insult':
             if(!args[1]){
@@ -216,9 +228,58 @@ client.on('message', msg=>{
             // function(){
             // console.log('wah');
             // });
-            makePdf(msg.content);
+            makePdf(msg);
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+              }
+            
+              
+            async function makePdf(msg) {
+                // console.log("Hello");
+                // await sleep(2000);
+                // console.log("World!");
+                // await sleep(2000);
+                // console.log("Goodbye!");
+            
+                        const output = fs.createWriteStream('output.pdf');
+                        fs.readFile('input.tex', function(err, data){
+                            //console.log(data);
+                            fs.writeFile('mynewfile1.tex', data + '$' + msg + '$}\n\\end{document}', function (err) {
+                                if (err) throw err;
+                                console.log('Saved!');
+                                             
+                            }); 
+                        });
+                        await sleep(2000);
+                        const input = fs.createReadStream('mynewfile1.tex');
+                        await sleep(2000);
+                        pdf = latex(input);
+                        await sleep(2000);
+                        pdf.pipe(output);
+                        await sleep(2000);
+                        makePng();
+                        await sleep(1000);
+                        var attachment = new Discord.Attachment('output.png');
+                        msg.channel.send(attachment);     
+                        console.log('done');
+                       
+                        // im.convert([ '-density=300', '-srcFormat=output.pdf', '-resize=25x125', '-quality=100', '-format=out.png'],
+                        // //-density 150 -antialias "input_file_name.pdf" -append -resize 1024x -quality 100 "output_file_name.png"
+                        // function(err, stdout){
+                        //     if (err) throw err;
+                        //     console.log('stdout:', stdout);
+                        //   });
+            
+              }
+              
 
         break;
+        default:
+            if(msg.author.username !== 'HackCU' && msg.author.username !== 'Rythm'){
+                msg.channel.send("Unknown command. Type !help to view all commands.")
+            }
+        break;
+
     }
 })
 
@@ -263,19 +324,12 @@ function convertDegrees(str){
     return str;
 }
 
-function encrypt(str, code){
-    if(isNaN(parseInt(code))){
-
-    }else{
-
-    }
-}
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   
-  async function makePdf(msg) {
+async function makePdf(msg) {
     // console.log("Hello");
     // await sleep(2000);
     // console.log("World!");
@@ -285,7 +339,7 @@ function sleep(ms) {
             const output = fs.createWriteStream('output.pdf');
             fs.readFile('input.tex', function(err, data){
                 //console.log(data);
-                fs.writeFile('mynewfile1.tex', data + '$' + msg + '$\n\\end{document}', function (err) {
+                fs.writeFile('mynewfile1.tex', data + '$' + msg + '$}\n\\end{document}', function (err) {
                     if (err) throw err;
                     console.log('Saved!');
                 }); 
@@ -297,13 +351,14 @@ function sleep(ms) {
             pdf = latex(input);
             await sleep(2000);
             pdf.pipe(output);
-            await sleep(4000);
-            im.convert([ '-density=300', '-srcFormat=output.pdf', '-resize=25x125', '-quality=100', '-format=out.png'],
-            //-density 150 -antialias "input_file_name.pdf" -append -resize 1024x -quality 100 "output_file_name.png"
-            function(err, stdout){
-                if (err) throw err;
-                console.log('stdout:', stdout);
-              });
+            await sleep(2000);
+            
+            // im.convert([ '-density=300', '-srcFormat=output.pdf', '-resize=25x125', '-quality=100', '-format=out.png'],
+            // //-density 150 -antialias "input_file_name.pdf" -append -resize 1024x -quality 100 "output_file_name.png"
+            // function(err, stdout){
+            //     if (err) throw err;
+            //     console.log('stdout:', stdout);
+            //   });
 
   }
 
@@ -313,4 +368,89 @@ function sleep(ms) {
 client.login(token);
 
 
+function makePng(){
 
+    var Canvas = require("canvas");
+    var assert = require("assert").strict;
+
+    function NodeCanvasFactory() {}
+    NodeCanvasFactory.prototype = {
+    create: function NodeCanvasFactory_create(width, height) {
+        assert(width > 0 && height > 0, "Invalid canvas size");
+        var canvas = Canvas.createCanvas(width, height);
+        var context = canvas.getContext("2d");
+        return {
+        canvas: canvas,
+        context: context,
+        };
+    },
+
+    reset: function NodeCanvasFactory_reset(canvasAndContext, width, height) {
+        assert(canvasAndContext.canvas, "Canvas is not specified");
+        assert(width > 0 && height > 0, "Invalid canvas size");
+        canvasAndContext.canvas.width = width;
+        canvasAndContext.canvas.height = height;
+    },
+
+    destroy: function NodeCanvasFactory_destroy(canvasAndContext) {
+        assert(canvasAndContext.canvas, "Canvas is not specified");
+
+        // Zeroing the width and height cause Firefox to release graphics
+        // resources immediately, which can greatly reduce memory consumption.
+        canvasAndContext.canvas.width = 0;
+        canvasAndContext.canvas.height = 0;
+        canvasAndContext.canvas = null;
+        canvasAndContext.context = null;
+    },
+    };
+
+    var pdfjsLib = require("pdfjs-dist/build/pdf.js");
+
+    // Relative path of the PDF file.
+    var pdfURL = "output.pdf";
+
+    // Read the PDF file into a typed array so PDF.js can load it.
+    var rawData = new Uint8Array(fs.readFileSync(pdfURL));
+
+    // Load the PDF file.
+    var loadingTask = pdfjsLib.getDocument(rawData);
+    loadingTask.promise
+    .then(function(pdfDocument) {
+        console.log("# PDF document loaded.");
+
+        // Get the first page.
+        pdfDocument.getPage(1).then(function(page) {
+        // Render the page on a Node canvas with 100% scale.
+        var viewport = page.getViewport({ scale: 1.0 });
+        var canvasFactory = new NodeCanvasFactory();
+        var canvasAndContext = canvasFactory.create(
+            viewport.width,
+            viewport.height
+        );
+        var renderContext = {
+            canvasContext: canvasAndContext.context,
+            viewport: viewport,
+            canvasFactory: canvasFactory,
+        };
+
+        var renderTask = page.render(renderContext);
+        renderTask.promise.then(function() {
+            // Convert the canvas to an image buffer.
+            var image = canvasAndContext.canvas.toBuffer();
+            fs.writeFile("output.png", image, function(error) {
+            if (error) {
+                console.error("Error: " + error);
+            } else {
+                console.log(
+                "Finished converting first page of PDF file to a PNG image."
+                );
+            }
+            });
+        });
+        });
+    })
+    .catch(function(reason) {
+        console.log(reason);
+    });
+
+}
