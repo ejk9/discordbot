@@ -1,7 +1,7 @@
 //console.log("Hello, World!");
 
 const Discord =  require('discord.js');
-// const newton = require('newtonmath.js');
+const newton = require('newtonmath.js');
 const client = new Discord.Client();
 const plotly = require('plotly')("ejk9", "uKqTbKbMuvDtVh0iwKiW")
 const fs = require('fs');
@@ -13,23 +13,47 @@ client.on('ready', () =>{
     console.log('This bot is online');
 })
 
+const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
+  
+
 client.on('message', msg=>{
     let args = msg.content.substring(prefix.length).split(" ");
     if(msg.content === 'yikes') msg.channel.send("bruh");
     switch(args[0]){
         case 'graph':
+            if(typeof args[1] === "undefined"){
+                msg.channel.send("Invald function");
+                break;
+            }
+            typeof args[2] === "undefined" && (args[2] = -10);
+            typeof args[3] === "undefined" && (args[3] = 10);
+            typeof args[4] === "undefined" && (args[4] = 1);
+            console.log(args);
+            let r = require("range");
+            let xnums = r.range(args[2],args[3] + 1 , args[4])
+            var result = new Array();
+            // console.log(args[1].replace('x',xnums[2]));
+            for(var i = 0; i < xnums.length; i++){
+                var q = ""
+                var str = args[1].replace('x',xnums[i]);
+                // console.log(str, end=' ');
+                newton.simplify(str, x => {q = x; result.push(q);});
+                // console.log("this code should run second");
+            }
             
-
-
-            var r = require("range");
+            await sleep(2000)
+            
             var trace1 = {
                 
-                x: r.range(-10,10),
+                x: xnums,
                 
-                y: r.range(-10,10),
+                y: result,
                 
                 type: "line"
             };
+            console.log(trace1);
             var figure = {'data': [trace1]};
             var imgOpts = {
                 format: 'png',
@@ -51,6 +75,7 @@ client.on('message', msg=>{
 
                 
             });
+            
             
             
             
