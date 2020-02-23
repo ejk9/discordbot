@@ -298,7 +298,7 @@ function sleep(ms) {
             await sleep(2000);
             pdf.pipe(output);
             await sleep(4000);
-            im.convert(['output.pdf', '-density', '300', '1.png'],
+            im.convert([ '-density=300', '-srcFormat=output.pdf', '-resize=25x125', '-quality=100', '-format=out.png'],
             //-density 150 -antialias "input_file_name.pdf" -append -resize 1024x -quality 100 "output_file_name.png"
             function(err, stdout){
                 if (err) throw err;

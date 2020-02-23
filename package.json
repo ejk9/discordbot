@@ -18,9 +18,11 @@
   "homepage": "https://github.com/ejk9/discordbot#readme",
   "dependencies": {
     "discord.js": "^11.5.1",
+    "graphicsmagick": "0.0.1",
     "imagemagick": "^0.1.3",
     "newtonmath.js": "^1.0.2",
     "node-latex": "^2.6.3",
+    "pdf2pic": "^1.3.12",
     "request": "^2.88.2"
   }
 }
