@@ -173,13 +173,23 @@ client.on('message', msg=>{
             
         break;
         case 'insult':
-            request('https://evilinsult.com/generate_insult.php?lang=en&type=json', function (error, response, body) {
+            if(!args[1]){
+                request('https://evilinsult.com/generate_insult.php?lang=en&type=json', function (error, response, body) {
             if (!error && response.statusCode == 200) {
                     importedJSON = JSON.parse(body);
-                    console.log(importedJSON);
+                    //console.log(importedJSON);
                     msg.channel.send(importedJSON.insult);
                 }
             })
+            }else{
+                request('https://evilinsult.com/generate_insult.php?lang=en&type=json', function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                        importedJSON = JSON.parse(body);
+                        //console.log(importedJSON);
+                        msg.channel.send(args[1] + " " + importedJSON.insult);
+                    }
+                })
+            }
             break;
     }
 })
