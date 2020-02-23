@@ -26,6 +26,9 @@ client.on('message', msg=>{
             if(typeof args[1] === "undefined"){
                 msg.channel.send("Invald function");
                 break;
+            }else if(args[1] === "help"){
+                msg.channel.send("**Usage:** !math <function>\n\n**Examples:**`!math x^2` graphs the function x^2 from -10 to 10");
+                break;
             }
             typeof args[2] === "undefined" && (args[2] = -10);
             typeof args[3] === "undefined" && (args[3] = 10);
@@ -35,16 +38,21 @@ client.on('message', msg=>{
             let xnums = r.range(args[2],args[3] + 1 , args[4])
             var result = new Array();
             // console.log(args[1].replace('x',xnums[2]));
-            for(var i = 0; i < xnums.length; i++){
-                var q = ""
-                var str = args[1].replace('x',xnums[i]);
-                // console.log(str, end=' ');
-                newton.simplify(str, x => {q = x; result.push(q);});
-                // console.log("this code should run second");
+            function step(i){
+                if(i < xnums.length){
+                    var str = args[1].replace(/x/gi,'('+xnums[i] +')');
+                    // console.log(str, end=' ');
+                    newton.simplify(str, x => result[i] = x)//console.log("please help me : ( i: " + i + " q: " + q); result[i] =q;});
+                    // console.log("this code should run second");
+                    step(i + 1)
+                }else {
+                    console.log("Finished loading");
+                    console.log(result);
+                }
             }
-            
-            await sleep(2000)
-            
+            step(0);
+            const doSomething = async () => {
+            await sleep(1000)
             var trace1 = {
                 
                 x: xnums,
@@ -75,7 +83,8 @@ client.on('message', msg=>{
 
                 
             });
-            
+        }
+        doSomething();
             
             
             
