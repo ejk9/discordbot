@@ -335,7 +335,7 @@ client.on('message', msg=>{
             
             }
             const doSomething = async ()=> {
-            await sleep(50);
+            await sleep(1000);
             var trace1 = {
                 
                 x: xnums,
