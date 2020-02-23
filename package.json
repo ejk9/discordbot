@@ -18,6 +18,8 @@
   "homepage": "https://github.com/ejk9/discordbot#readme",
   "dependencies": {
     "discord.js": "^11.5.1",
-    "newtonmath.js": "^1.0.2"
+    "newtonmath.js": "^1.0.2",
+    "plotly": "^1.0.6",
+    "range": "0.0.3"
   }
 }
