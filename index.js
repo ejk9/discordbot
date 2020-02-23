@@ -275,7 +275,7 @@ client.on('message', msg=>{
 
         break;
         default:
-            if(msg.author.username !== 'HackCU' && msg.author.username !== 'Rythm'){
+            if(msg.bot === false){
                 msg.channel.send("Unknown command. Type !help to view all commands.")
             }
         break;
