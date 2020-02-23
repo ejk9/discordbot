@@ -4,16 +4,18 @@ const Discord =  require('discord.js');
 const newton = require('newtonmath.js');
 const client = new Discord.Client();
 
+const im = require('imagemagick');
+
 const token = 'NjgwODE1ODk0NDE4Njg1OTYy.XlGMYA._QdAyit7mUp1uaC_X_S5mzrXVB8';
 
 const prefix = '!';
-var sendingMsg;
 
 mathHelp = new Discord.RichEmbed("Math");
 
 var request = require('request');
 
-
+const latex = require('node-latex');
+const fs = require('fs');
 
 
 client.on('ready', () =>{
@@ -190,7 +192,33 @@ client.on('message', msg=>{
                     }
                 })
             }
-            break;
+        break;
+        case 'latex':
+            msg.content = msg.content.substr(7);
+            // const output = fs.createWriteStream('output.pdf');
+            // fs.readFile('input.tex', function(err, data){
+            //     //console.log(data);
+            //     fs.writeFile('mynewfile1.tex', data + '$' + msg.content + '$\n\\end{document}', function (err) {
+            //         if (err) throw err;
+            //         console.log('Saved!');
+            //     }); 
+            // });
+
+            // const input = fs.createReadStream('mynewfile1.tex');
+            
+            // sleep(2000);
+            // pdf = latex(input);
+            // sleep(2000);
+            // pdf.pipe(output);
+            // sleep(4000);
+            // im.convert(['output.pdf', '-resize', '25x120', '1.png'],
+            // //-density 150 -antialias "input_file_name.pdf" -append -resize 1024x -quality 100 "output_file_name.png"
+            // function(){
+            // console.log('wah');
+            // });
+            makePdf(msg.content);
+
+        break;
     }
 })
 
@@ -234,6 +262,53 @@ function convertDegrees(str){
     console.log(str);
     return str;
 }
+
+function encrypt(str, code){
+    if(isNaN(parseInt(code))){
+
+    }else{
+
+    }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
+  async function makePdf(msg) {
+    // console.log("Hello");
+    // await sleep(2000);
+    // console.log("World!");
+    // await sleep(2000);
+    // console.log("Goodbye!");
+
+            const output = fs.createWriteStream('output.pdf');
+            fs.readFile('input.tex', function(err, data){
+                //console.log(data);
+                fs.writeFile('mynewfile1.tex', data + '$' + msg + '$\n\\end{document}', function (err) {
+                    if (err) throw err;
+                    console.log('Saved!');
+                }); 
+            });
+            await sleep(2000);
+            const input = fs.createReadStream('mynewfile1.tex');
+            
+            await sleep(2000);
+            pdf = latex(input);
+            await sleep(2000);
+            pdf.pipe(output);
+            await sleep(4000);
+            im.convert(['output.pdf', '-density', '300', '1.png'],
+            //-density 150 -antialias "input_file_name.pdf" -append -resize 1024x -quality 100 "output_file_name.png"
+            function(err, stdout){
+                if (err) throw err;
+                console.log('stdout:', stdout);
+              });
+
+  }
+
+
+
 
 client.login(token);
 
