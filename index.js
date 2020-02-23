@@ -205,7 +205,7 @@ client.on('message', msg=>{
             
         break;
         case 'help':
-            msg.channel.send("!help, !insult, !latex, !math")
+            msg.channel.send("!graph, !help, !insult, !latex, !math")
         break;
         case 'insult':
             if(!args[1]){
