@@ -1,0 +1,34 @@
+*{
+    margin:  0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+header{
+    display: flex;
+    /* background: lightblue; */
+    width: 90%;
+    height: 10vh;
+    margin: auto;
+    align-items: center;
+}
+
+.titleHack, .nav-links, .nav-emails{
+    display: flex;
+}
+
+.titleHack{
+    background: purple;
+    flex: 1;
+}
+
+.nav-links{
+    background: lightcoral;
+    flex: 2;
+    
+}
+
+.nav-emails{
+    background: lightgreen;
+    flex: 1;
+}
