@@ -24,10 +24,13 @@ Clone the github repo
 ```
 $ git clone url
 ```
-
+Install dependencies
+```
+$ npm install
+```
 Run the bot with node
 ```
-node *
+$ node *
 ```
 
 
