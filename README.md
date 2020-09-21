@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Things you need to install the software and how to install them
 
 ```
 * Latex
@@ -28,9 +28,12 @@ Install dependencies
 ```
 $ npm install
 ```
+A note about dependencies: an issue seen is that it has not downloaded all the dependencies correctly. Run $ npm install <Missing Module> if you encounter any of these issues.
+
+
 Run the bot with node
 ```
-$ node *
+$ node index.js
 ```
 
 
