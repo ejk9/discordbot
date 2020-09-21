@@ -3,7 +3,7 @@
 const Discord =  require('discord.js');
 const newton = require('newtonmath.js');
 const client = new Discord.Client();
-const plotly = require('plotly')("ejk9", "uKqTbKbMuvDtVh0iwKiW")
+const plotly = require('plotly')("ejk9", "uKqTbKbMuvDtVh0iwKiW");
 const fs = require('fs');
 const b = require('async');
 
