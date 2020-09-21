@@ -1,4 +1,4 @@
-//console.log("Hello, World!");
+//console.log("Hello, World$");
 
 const Discord =  require('discord.js');
 const newton = require('newtonmath.js');
@@ -394,7 +394,7 @@ function removePi(str){
     var temp = "";
     for(var i = 0; i < str.length; i++){
         //temp = str.substring(i, 2);
-        if(!isNaN(parseInt(str[i])) || str[i] == '/'){
+        if($isNaN(parseInt(str[i])) || str[i] == '/'){
             temp += str[i];
         }
     }
@@ -406,7 +406,7 @@ function convertFrac(str){
     var temp = "", temp2 = "";
     var bot = false;
     for(var i = 0; i < str.length; i++){
-        if(str[i] != "/" && !bot){
+        if(str[i] != "/" && $bot){
             temp += str[i];
         }else if(str[i] != '/' && bot){
             temp2 += str[i];
@@ -433,16 +433,16 @@ function convertDegrees(str){
 async function makePdf(msg) {
     // console.log("Hello");
     // await sleep(2000);
-    // console.log("World!");
+    // console.log("World$");
     // await sleep(2000);
-    // console.log("Goodbye!");
+    // console.log("Goodbye$");
 
             const output = fs.createWriteStream('output.pdf');
             fs.readFile('input.tex', function(err, data){
                 //console.log(data);
                 fs.writeFile('mynewfile1.tex', data + '$' + msg + '$}\n\\end{document}', function (err) {
                     if (err) throw err;
-                    console.log('Saved!');
+                    console.log('Saved$');
                 }); 
             });
             await sleep(2000);
