@@ -1,4 +1,4 @@
-//console.log("Hello, World$");
+//console.log("Hello, World!");
 
 const Discord =  require('discord.js');
 const newton = require('newtonmath.js');
@@ -67,47 +67,47 @@ client.on('message', msg=>{
                     .addField('Usage', "$math simplify <expression>\n$math factor <expression>\n$math derive <expression>\n$math integrate <expression>\n$math tangent <expression> <x-value>\n$math area <lower bound\> <upper bound> <expression>\n$math rtd <value>\n$math dtr <value>\n$math cos <value(radians)>\n$math sin <value(radians)>\n$math tan <value(radians)>\n$math tan <value(radians)>\n$math arccos <value>\n$math arcsin <value>\n$math arctan <value>\n$math abs <value>\n$math log <base> <value>", true)
                     .setColor(0x7d3c98);
                     msg.channel.send(mathHelp);
-                }else if($args[1]){
+                }else if(!args[1]){
                     msg.channel.send('Invalid format. Type $math help to view format');
                 }else if(msg.author !== 'hackCU'){
                     switch(args[1]){
                         case 'simplify':
-                            if($args[2]){
+                            if(!args[2]){
                                 msg.channel.send('Invalid format. Type $math help to view format');
                             }else{
                                 newton.simplify(args[2], r => msg.channel.send(r));
                             }
                             break;
                         case 'factor':
-                            if($args[2]){
+                            if(!args[2]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.factor(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'derive':
-                            if($args[2]){
+                            if(!args[2]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.derive(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'integrate':
-                            if($args[2]){
+                            if(!args[2]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.integrate(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'tangent':
-                            if($args[2] || $args[3]){
+                            if(!args[2] || !args[3]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.tangent(args[2], args[3], r=> msg.channel.send(r));
                             }
                             break;
                         case 'area':
-                            if($args[2] || $args[3] || $args[4]){
+                            if(!args[2] || !args[3] || !args[4]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 
@@ -115,7 +115,7 @@ client.on('message', msg=>{
                             }
                             break;
                         case 'rtd':
-                            if($args[2]){
+                            if(!args[2]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 var num = removePi(args[2]);
@@ -124,7 +124,7 @@ client.on('message', msg=>{
                             }
                             break;
                         case 'dtr':
-                            if($args[2]){
+                            if(!args[2]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 var str = args[2] + '/180';
@@ -142,56 +142,56 @@ client.on('message', msg=>{
                                 
                             }
                         case 'cos':
-                            if($args[2]){
+                            if(!args[2]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.cos(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'sin':
-                            if($args[2]){
+                            if(!args[2]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.sin(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'tan':
-                            if($args[2]){
+                            if(!args[2]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.tan(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'arccos':
-                            if($args[2]){
+                            if(!args[2]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.arccos(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'arcsin':
-                            if($args[2]){
+                            if(!args[2]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.arcsin(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'arctan':
-                            if($args[2]){
+                            if(!args[2]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.arctan(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'abs':
-                            if($args[2]){
+                            if(!args[2]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.abs(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'log':
-                            if($args[2] || $args[3]){
+                            if(!args[2] || !args[3]){
                                 msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.log(args[3], args[2], r=> msg.channel.send(r));
@@ -208,9 +208,9 @@ client.on('message', msg=>{
                 msg.channel.send("$graph, $help, $insult, $latex, $math")
             break;
             case 'insult':
-                if($args[1]){
+                if(!args[1]){
                     request('https://evilinsult.com/generate_insult.php?lang=en&type=json', function (error, response, body) {
-                if ($error && response.statusCode == 200) {
+                if (!error && response.statusCode == 200) {
                         importedJSON = JSON.parse(body);
                         //console.log(importedJSON);
                         msg.channel.send(importedJSON.insult);
@@ -218,7 +218,7 @@ client.on('message', msg=>{
                 })
                 }else{
                     request('https://evilinsult.com/generate_insult.php?lang=en&type=json', function (error, response, body) {
-                    if ($error && response.statusCode == 200) {
+                    if (!error && response.statusCode == 200) {
                             importedJSON = JSON.parse(body);
                             //console.log(importedJSON);
                             msg.channel.send(args[1] + " " + importedJSON.insult);
@@ -231,9 +231,9 @@ client.on('message', msg=>{
                 // const output = fs.createWriteStream('output.pdf');
                 // fs.readFile('input.tex', function(err, data){
                 //     //console.log(data);
-                //     fs.writeFile('mynewfile1.tex', data + '$' + msg.content + '$\n\\end{document}', function (err) {
+                //     fs.writeFile('mynewfile1.tex', data + '!' + msg.content + '!\n\\end{document}', function (err) {
                 //         if (err) throw err;
-                //         console.log('Saved$');
+                //         console.log('Saved!');
                 //     }); 
                 // });
 
@@ -258,16 +258,16 @@ client.on('message', msg=>{
                 async function makePdf(msg) {
                     // console.log("Hello");
                     // await sleep(2000);
-                    // console.log("World$");
+                    // console.log("World!");
                     // await sleep(2000);
-                    // console.log("Goodbye$");
+                    // console.log("Goodbye!");
                 
                             const output = fs.createWriteStream('output.pdf');
                             fs.readFile('input.tex', function(err, data){
                                 //console.log(data);
-                                fs.writeFile('mynewfile1.tex', data + '$' + msg + '$}\n\\end{document}', function (err) {
+                                fs.writeFile('mynewfile1.tex', data + '!' + msg + '!}\n\\end{document}', function (err) {
                                     if (err) throw err;
-                                    console.log('Saved$');
+                                    console.log('Saved!');
                                                 
                                 }); 
                             });
@@ -394,7 +394,7 @@ function removePi(str){
     var temp = "";
     for(var i = 0; i < str.length; i++){
         //temp = str.substring(i, 2);
-        if($isNaN(parseInt(str[i])) || str[i] == '/'){
+        if(!isNaN(parseInt(str[i])) || str[i] == '/'){
             temp += str[i];
         }
     }
@@ -406,7 +406,7 @@ function convertFrac(str){
     var temp = "", temp2 = "";
     var bot = false;
     for(var i = 0; i < str.length; i++){
-        if(str[i] != "/" && $bot){
+        if(str[i] != "/" && !bot){
             temp += str[i];
         }else if(str[i] != '/' && bot){
             temp2 += str[i];
@@ -433,16 +433,16 @@ function convertDegrees(str){
 async function makePdf(msg) {
     // console.log("Hello");
     // await sleep(2000);
-    // console.log("World$");
+    // console.log("World!");
     // await sleep(2000);
-    // console.log("Goodbye$");
+    // console.log("Goodbye!");
 
             const output = fs.createWriteStream('output.pdf');
             fs.readFile('input.tex', function(err, data){
                 //console.log(data);
-                fs.writeFile('mynewfile1.tex', data + '$' + msg + '$}\n\\end{document}', function (err) {
+                fs.writeFile('mynewfile1.tex', data + '!' + msg + '!}\n\\end{document}', function (err) {
                     if (err) throw err;
-                    console.log('Saved$');
+                    console.log('Saved!');
                 }); 
             });
             await sleep(2000);
