@@ -69,7 +69,7 @@ client.on('message', msg=>{
                 msg.channel.send(mathHelp);
             }else if($args[1]){
                 msg.channel.send('Invalid format. Type $math help to view format');
-            }else if(msg.author $== 'hackCU'){
+            }else if(msg.author !== 'hackCU'){
                 switch(args[1]){
                     case 'simplify':
                         if($args[2]){
@@ -405,9 +405,9 @@ function convertFrac(str){
     var temp = "", temp2 = "";
     var bot = false;
     for(var i = 0; i < str.length; i++){
-        if(str[i] $= "/" && $bot){
+        if(str[i] != "/" && $bot){
             temp += str[i];
-        }else if(str[i] $= '/' && bot){
+        }else if(str[i] != '/' && bot){
             temp2 += str[i];
         }else{
             bot = true;
