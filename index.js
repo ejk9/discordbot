@@ -61,62 +61,62 @@ client.on('message', msg=>{
             case 'math':
                 if(args[1] == 'help'){
                     mathHelp = new Discord.RichEmbed()
-                    .setTitle("!math Help")
-                    .setDescription("!math <operation> <expression>")
+                    .setTitle("$math Help")
+                    .setDescription("$math <operation> <expression>")
                     .addField('Operations', "Simplify\nFactor\nDerive\nIntegrate\nFind Tangent\nArea Under Curve\n\nConvert Radians to Degrees\nConvert Degrees to Radians\nCosine\nSine\nTangent\nInverse Cosine\nInverse Sine\nInverse Cosine\nInverse Tangent\nAbsolute Value\nLogarithm", true)
-                    .addField('Usage', "!math simplify <expression>\n!math factor <expression>\n!math derive <expression>\n!math integrate <expression>\n!math tangent <expression> <x-value>\n!math area <lower bound\> <upper bound> <expression>\n!math rtd <value>\n!math dtr <value>\n!math cos <value(radians)>\n!math sin <value(radians)>\n!math tan <value(radians)>\n!math tan <value(radians)>\n!math arccos <value>\n!math arcsin <value>\n!math arctan <value>\n!math abs <value>\n!math log <base> <value>", true)
+                    .addField('Usage', "$math simplify <expression>\n$math factor <expression>\n$math derive <expression>\n$math integrate <expression>\n$math tangent <expression> <x-value>\n$math area <lower bound\> <upper bound> <expression>\n$math rtd <value>\n$math dtr <value>\n$math cos <value(radians)>\n$math sin <value(radians)>\n$math tan <value(radians)>\n$math tan <value(radians)>\n$math arccos <value>\n$math arcsin <value>\n$math arctan <value>\n$math abs <value>\n$math log <base> <value>", true)
                     .setColor(0x7d3c98);
                     msg.channel.send(mathHelp);
-                }else if(!args[1]){
-                    msg.channel.send('Invalid format. Type !math help to view format');
+                }else if($args[1]){
+                    msg.channel.send('Invalid format. Type $math help to view format');
                 }else if(msg.author !== 'hackCU'){
                     switch(args[1]){
                         case 'simplify':
-                            if(!args[2]){
-                                msg.channel.send('Invalid format. Type !math help to view format');
+                            if($args[2]){
+                                msg.channel.send('Invalid format. Type $math help to view format');
                             }else{
                                 newton.simplify(args[2], r => msg.channel.send(r));
                             }
                             break;
                         case 'factor':
-                            if(!args[2]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.factor(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'derive':
-                            if(!args[2]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.derive(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'integrate':
-                            if(!args[2]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.integrate(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'tangent':
-                            if(!args[2] || !args[3]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2] || $args[3]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.tangent(args[2], args[3], r=> msg.channel.send(r));
                             }
                             break;
                         case 'area':
-                            if(!args[2] || !args[3] || !args[4]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2] || $args[3] || $args[4]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 
                                 newton.area(args[4], args[2], args[3], r=> msg.channel.send(r));
                             }
                             break;
                         case 'rtd':
-                            if(!args[2]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 var num = removePi(args[2]);
                                 num = convertFrac(num);
@@ -124,8 +124,8 @@ client.on('message', msg=>{
                             }
                             break;
                         case 'dtr':
-                            if(!args[2]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 var str = args[2] + '/180';
                                 var temp = "";
@@ -142,75 +142,75 @@ client.on('message', msg=>{
                                 
                             }
                         case 'cos':
-                            if(!args[2]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.cos(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'sin':
-                            if(!args[2]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.sin(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'tan':
-                            if(!args[2]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.tan(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'arccos':
-                            if(!args[2]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.arccos(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'arcsin':
-                            if(!args[2]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.arcsin(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'arctan':
-                            if(!args[2]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.arctan(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'abs':
-                            if(!args[2]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.abs(args[2], r=> msg.channel.send(r));
                             }
                             break;
                         case 'log':
-                            if(!args[2] || !args[3]){
-                                msg.channel.send("Invalid format. Type !math help to view format");
+                            if($args[2] || $args[3]){
+                                msg.channel.send("Invalid format. Type $math help to view format");
                             }else{
                                 newton.log(args[3], args[2], r=> msg.channel.send(r));
                             }
                             break;
                         default:
-                            msg.channel.send('Invalid command. Type !math help to view formats.');
+                            msg.channel.send('Invalid command. Type $math help to view formats.');
                             break;
                     }
                 }
                 
             break;
             case 'help':
-                msg.channel.send("!graph, !help, !insult, !latex, !math")
+                msg.channel.send("$graph, $help, $insult, $latex, $math")
             break;
             case 'insult':
-                if(!args[1]){
+                if($args[1]){
                     request('https://evilinsult.com/generate_insult.php?lang=en&type=json', function (error, response, body) {
-                if (!error && response.statusCode == 200) {
+                if ($error && response.statusCode == 200) {
                         importedJSON = JSON.parse(body);
                         //console.log(importedJSON);
                         msg.channel.send(importedJSON.insult);
@@ -218,7 +218,7 @@ client.on('message', msg=>{
                 })
                 }else{
                     request('https://evilinsult.com/generate_insult.php?lang=en&type=json', function (error, response, body) {
-                    if (!error && response.statusCode == 200) {
+                    if ($error && response.statusCode == 200) {
                             importedJSON = JSON.parse(body);
                             //console.log(importedJSON);
                             msg.channel.send(args[1] + " " + importedJSON.insult);
@@ -233,7 +233,7 @@ client.on('message', msg=>{
                 //     //console.log(data);
                 //     fs.writeFile('mynewfile1.tex', data + '$' + msg.content + '$\n\\end{document}', function (err) {
                 //         if (err) throw err;
-                //         console.log('Saved!');
+                //         console.log('Saved$');
                 //     }); 
                 // });
 
@@ -258,16 +258,16 @@ client.on('message', msg=>{
                 async function makePdf(msg) {
                     // console.log("Hello");
                     // await sleep(2000);
-                    // console.log("World!");
+                    // console.log("World$");
                     // await sleep(2000);
-                    // console.log("Goodbye!");
+                    // console.log("Goodbye$");
                 
                             const output = fs.createWriteStream('output.pdf');
                             fs.readFile('input.tex', function(err, data){
                                 //console.log(data);
                                 fs.writeFile('mynewfile1.tex', data + '$' + msg + '$}\n\\end{document}', function (err) {
                                     if (err) throw err;
-                                    console.log('Saved!');
+                                    console.log('Saved$');
                                                 
                                 }); 
                             });
@@ -303,7 +303,7 @@ client.on('message', msg=>{
                     msg.channel.send("Invald function");
                     break;
                 }else if(args[1] === "help"){
-                    msg.channel.send("`!graph graphs a polynomial function.`\n\n**Usage:** !graph <function> <xmin> <xmax> <step>\n\n**Examples:**\n`!math x^2` graphs the function x^2 from -10 to 10");
+                    msg.channel.send("`$graph graphs a polynomial function.`\n\n**Usage:** $graph <function> <xmin> <xmax> <step>\n\n**Examples:**\n`$math x^2` graphs the function x^2 from -10 to 10");
                     break;
                 }
                 typeof args[2] === "undefined" && (args[2] = -10);
@@ -373,7 +373,7 @@ client.on('message', msg=>{
             break; 
             default:
                     if(msg.bot === false){
-                        msg.channel.send("Unknown command. Type !help to view all commands.")
+                        msg.channel.send("Unknown command. Type $help to view all commands.")
                     }
                 break;
                 
