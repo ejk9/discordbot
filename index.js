@@ -1,9 +1,9 @@
 //console.log("Hello, World!");
-
+const config = require('./config.js');
 const Discord =  require('discord.js');
 const newton = require('newtonmath.js');
 const client = new Discord.Client();
-const plotly = require('plotly')("ejk9", "uKqTbKbMuvDtVh0iwKiW");
+const plotly = require('plotly')("ejk9", config.PLOT_LY);
 const fs = require('fs');
 const b = require('async');
 
@@ -13,7 +13,7 @@ const im = require('imagemagick');
 
 const prefix = '$';
 
-const token = 'NjgwODE1ODk0NDE4Njg1OTYy.XlGMYA._QdAyit7mUp1uaC_X_S5mzrXVB8';
+const token = config.TOKEN;
 
 
 
