@@ -6,7 +6,7 @@ const client = new Discord.Client();
 const plotly = require('plotly')("ejk9", config.PLOT_LY);
 const fs = require('fs');
 const b = require('async');
-
+const mathFunc = require('./mathFun.js');
 
 const im = require('imagemagick');
 
@@ -54,22 +54,20 @@ async function asyncProcessing (ms) {
 
 
 client.on('message', msg=>{
-    let args = msg.content.substring(prefix.length).split(" ");
+    if(message.author.bot) return;
 
+    msg.content = msg.content.toLocaleLowerCase();
+    let args = msg.content.substring(prefix.length).split(" ");
+    
     if(msg.content[0] == prefix){
         switch(args[0]){
             case 'math':
+
                 if(args[1] == 'help'){
-                    mathHelp = new Discord.RichEmbed()
-                    .setTitle("$math Help")
-                    .setDescription("$math <operation> <expression>")
-                    .addField('Operations', "Simplify\nFactor\nDerive\nIntegrate\nFind Tangent\nArea Under Curve\n\nConvert Radians to Degrees\nConvert Degrees to Radians\nCosine\nSine\nTangent\nInverse Cosine\nInverse Sine\nInverse Cosine\nInverse Tangent\nAbsolute Value\nLogarithm", true)
-                    .addField('Usage', "$math simplify <expression>\n$math factor <expression>\n$math derive <expression>\n$math integrate <expression>\n$math tangent <expression> <x-value>\n$math area <lower bound\> <upper bound> <expression>\n$math rtd <value>\n$math dtr <value>\n$math cos <value(radians)>\n$math sin <value(radians)>\n$math tan <value(radians)>\n$math tan <value(radians)>\n$math arccos <value>\n$math arcsin <value>\n$math arctan <value>\n$math abs <value>\n$math log <base> <value>", true)
-                    .setColor(0x7d3c98);
-                    msg.channel.send(mathHelp);
+                    msg.channel.send(mathFunc.help());
                 }else if(!args[1]){
                     msg.channel.send('Invalid format. Type $math help to view format');
-                }else if(msg.author !== 'hackCU'){
+                }else{
                     switch(args[1]){
                         case 'simplify':
                             if(!args[2]){
@@ -579,5 +577,3 @@ function makePng(){
 //     imageStream.pipe(fileStream);
 //     console.log("Image has been saved.")
 // });
-
-
