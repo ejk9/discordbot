@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/ejk9/discordbot#readme",
   "dependencies": {
-    "async": "^3.2.0",
+    "async": "^3.2.2",
     "canvas": "^2.6.1",
     "discord.js": "^11.5.1",
     "gm": "^1.23.1",
