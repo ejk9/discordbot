@@ -29,7 +29,7 @@
     "node-latex": "^2.6.3",
     "pdf": "^0.1.0",
     "pdf-image": "^2.0.0",
-    "pdfjs-dist": "^2.2.228",
+    "pdfjs-dist": "^2.16.105",
     "plotly": "^1.0.6",
     "range": "0.0.3",
     "request": "^2.88.2",
